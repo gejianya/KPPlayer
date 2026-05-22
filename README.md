@@ -126,5 +126,178 @@ Copyright © 2026 gejianya. All rights reserved.
 本软件仅允许个人非商业使用，未经授权禁止复制、修改、反向工程、二次分发或商业销售。
 
 
-## 以下为英文版本：
+下面是更适合 GitHub / 产品介绍 / 英文项目页使用的专业英文版本：
+
+
+## English Version
+
+### Product Description
+
+KPPlayer, short for K-Pop Media Player, is a multifunctional video player and poster-wall media management center. It features a unique landscape-to-portrait playback mode, in-player batch video moving and deletion, lossless video trimming, and a powerful user-managed local media database.
+
+With its large-scale self-built media library system, KPPlayer can manage thousands of videos and turn them into dynamic desktop wallpaper playback sessions. It is designed to present K-Pop stage videos and various media metadata in a rich, organized, and highly visual way.
+
+---
+
+### Key Features
+
+#### 1. Desktop Poster Wall Home Page
+
+- Designed a streaming-style poster wall browsing experience with support for large-scale media card rendering, cover loading, titles, media codes, years, actors, and other key metadata.
+- Built a multi-dimensional filtering system, including collections, labels/studios, years, genres, tags, watch status, and media-code initials.
+- Added homepage sorting by media code, title, filename, release date, play count, resolution, file size, rating, runtime, and random order.
+- Implemented sorting memory so the latest selected sorting field and direction are automatically restored the next time the app is opened.
+- Designed lazy loading for large media libraries to reduce rendering pressure and improve performance.
+- Added a top recommendation section to highlight selected posters from the current media library and improve browsing efficiency.
+
+#### 2. Desktop Detail Page
+
+- Designed a video detail page integrating cover art, title, release date, runtime, resolution, rating, file size, watch status, playback progress, director, production studio, and other metadata.
+- Optimized capsule-style metadata UI for key fields such as runtime, file size, and watch status.
+- Added rules to hide invalid or empty fields, such as missing director, missing rating, or empty body-weight values, to reduce visual noise.
+- Designed an actor list module where users can click actor avatars to enter actor-specific work pages, with clear favorite-state feedback.
+- Added preview images, same-series recommendations, related-genre videos, and personalized recommendation rows to improve content discovery.
+- Designed clickable capsule areas for series, genres, tags, and publishers, allowing users to navigate to corresponding filtered work pages.
+
+#### 3. Actor Works Page and Actor Profile Page
+
+- Designed actor work pages accessible from both the homepage actor entry and actor avatars on the detail page.
+- Designed actor profile cards with avatar, birth date, age, birthplace, blood type, height, weight, measurements, debut year, active period, exclusive studio, other activities, and external links.
+- Parsed actor profile JSON overview fields, extracted useful structured information from long text, and hid empty fields.
+- Optimized field naming by converting Japanese or Traditional Chinese expressions into Simplified Chinese labels better suited for Chinese users.
+- Unified batch selection capabilities on actor work pages, supporting click selection, box selection, Shift multi-select, select current page, invert current page, clear selection, batch move, and batch delete.
+- Designed actor favorite interactions so favorite and unfavorite states are immediately reflected on both actor pages and detail-page actor avatars.
+
+#### 4. Series Pages and Genre / Tag / Publisher Filter Pages
+
+- Designed series work pages accessible from both the homepage series entry and series fields on the detail page.
+- Designed filter result pages for genres, tags, series, and publishers, using the same visual style and pagination system as actor work pages.
+- Upgraded the original rough black-background filter pages into a unified layout with consistent background, cards, and pagination.
+- Fixed incomplete filter result rendering so all matched works can be displayed instead of only a partial set of cards.
+- Changed filtered result sorting from media-code alphabetical order to release date descending, which better matches browsing behavior.
+
+#### 5. Video Player and Playlist
+
+- Designed a video playback page supporting play, pause, previous, next, forward 30 seconds, rewind 30 seconds, delete current video, and open current path.
+- Supports almost all common video formats, including MP4, WebM, MKV, AVI, WMV, RMVB, FLV, M4V, MOV, TS, MPG, ASF, MPEG, OGV, F4V, and M2TS, with FFmpeg and VideoToolbox hardware acceleration integration.
+- Designed three playback modes: portrait mode, standard landscape mode, and wallpaper mode.
+- Portrait mode supports converting landscape videos into portrait-style playback.
+- Wallpaper mode allows videos to be played as dynamic desktop wallpapers with audio, motion visuals, seek controls, real random playback, video switching, video deletion, and zoom-crop support.
+- Unified the order of the top menu bar and context menu to keep operations consistent across different entry points.
+- Added keyboard shortcuts such as PgUp for previous video and PgDn for next video.
+- Designed the playlist to be hidden by default and displayed only when the user opens it, reducing initial resource usage.
+- Implemented playlist incremental loading: the first 100 videos are loaded by default, and another 100 videos are loaded each time the user scrolls near the bottom.
+- Added automatic preloading for the playback list when the current playing item approaches the end of the loaded list, preventing playback gaps.
+- Designed a watch-record system to track watched status, playback position, and play count.
+
+#### 6. Multi-Part / Episode Playback Logic
+
+- Designed media-code grouping logic for multi-part videos, recognizing formats such as `svdvd-310-CD1/CD2/CD3`, `svdvd-310-1/2/3`, `svdvd-310-01/02/03`, and `svdvd-310-a1/a2/a3` as episodes of the same work.
+- Designed detail-page playback rules so first-time playback starts from episode 1, continues through the remaining episodes, and only moves to the next work after all episodes are completed.
+- Designed resume rules so if an episode is partially watched, the next playback starts from the corresponding episode and timestamp.
+- Kept random playback unaffected to avoid breaking the user’s existing random-play behavior.
+
+#### 7. Backend Media Management
+
+- Designed local media library management, including creating media libraries, selecting local folders, full scanning, refreshing the poster wall, clearing filters, and clearing cache.
+- Designed media scanning logic to read video files, covers, NFO files, actors, tags, series, studios, release dates, and other metadata.
+- Designed a local SQLite database structure to manage videos, media libraries, actors, series, tags, playback records, and caches.
+- Designed play counts to be stored in watch-record files rather than directly in the main video table, making watched status, playback progress, and play count easier to manage together.
+- Designed NFO reading and display rules, mapping `<genre>`, `<tag>`, `<series>`, and `<publisher>` fields into separate UI sections while removing duplicated `series:` tag entries.
+- Designed file management capabilities including move, delete, batch move, and batch delete.
+
+#### 8. Dual Local / NAS Mode
+
+- Designed an independent global NAS mode without breaking the existing local mode.
+- Designed a layered resource-access architecture: the upper UI remains unified, while the bottom resource layer branches into a local resource adapter and a NAS SMB resource adapter.
+- Designed NAS connection, shared-folder browsing, NAS folder selection, NAS database creation, and NAS media scanning flows.
+- Designed NAS path-management rules to prevent local Finder paths and NAS paths from being mixed.
+- Adapted path-sensitive features for NAS mode, including playback, image reading, deletion, moving, path opening, and trimming.
+- Iterated NAS mode from basic connectivity into a practical media-library mode suitable for real usage.
+
+#### 9. Mobile App and Small-Screen Adaptation
+
+- Designed layouts optimized for touch interaction and narrow-screen browsing.
+- Optimized the mobile player, playlist, poster cards, and detail information sections.
+- Controlled the number of items rendered at once on mobile devices to prevent performance issues with large video lists.
+- Adapted key action buttons so core operations such as play, switch video, and show playlist remain usable on small screens.
+- Maintained consistent information architecture across desktop and mobile to reduce cross-device learning costs.
+
+#### 10. Batch Management and Multi-Select Interaction
+
+- Designed a multi-select management mode with enter and exit states.
+- Supported batch deletion and batch moving of video files. Users can move one or many video folders to other locations directly inside the player, while automatically syncing database and poster-wall data.
+- Supported click selection, box selection, Shift multi-select, select current page, invert current page, and clear selection.
+- Applied batch delete and batch move across the poster wall homepage, actor work pages, series pages, and filter result pages.
+- Designed card overlays and “Select” buttons in multi-select mode so users can clearly see whether a card is selectable or selected.
+- Unified multi-select interaction logic across different pages to reduce learning cost.
+
+#### 11. Error Handling and Issue Resolution
+
+- Fixed the issue where the actor favorite button had no immediate feedback on the actor page.
+- Fixed meaningless invalid fields such as “not filled” and “―kg” being displayed on detail and actor pages.
+- Fixed rough filter page styling, inconsistent background, and incomplete result rendering.
+- Fixed incorrect sorting logic for resolution, title, filename, and other homepage sorting options.
+- Fixed the empty top recommendation section after creating and fully scanning a new database.
+- Fixed horizontal recommendation arrows not showing correctly by recalculating visibility based on actual visible area and content width.
+- Fixed playlist loading only the first 100 videos without continuing to load more.
+- Fixed incorrect multi-part video playback order and the issue where playback jumped to another work before all episodes were completed.
+- Fixed multiple NAS-mode stability issues involving image loading, startup playback, seek performance, path opening, deletion, moving, and related resource chains.
+
+#### 12. More Features
+
+Additional features such as lossless video trimming and other advanced media-management capabilities are available for users to explore.
+
+---
+
+### Project Origin
+
+This project was independently designed and built from scratch by me with ChatGPT and Codex as AI development partners. The original purpose was to solve a personal need: playing landscape K-Pop stage videos in a portrait-style viewing mode. Over time, the project evolved step by step into a complete desktop media player and media-management product.
+
+This project was not created primarily to showcase coding skills, although I have previously studied iOS development and C and have some programming foundation. Its main purpose was to train and validate my ability as a product manager to identify real user pain points, break down requirements, design solutions, verify outcomes, and continuously iterate based on actual usage.
+
+AI handled part of the engineering implementation. I was mainly responsible for market research, requirement collection, problem definition, product planning, feature design, interaction logic, prioritization, acceptance criteria, and the full feedback loop from real usage.
+
+The project took more than three months from concept, project initiation, architecture planning, requirement communication, AI-assisted development, testing, user-experience optimization, bug fixing, continuous feature expansion, and final delivery of a usable product.
+
+The product currently includes a desktop app for macOS and Windows 11, browser-based web access, local and NAS dual modes, and an independent mobile app that has already been designed and developed but is not yet available on the App Store due to the lack of an Apple individual developer account.
+
+It combines frontend and backend development, large-scale media resource management, poster-wall waterfall browsing, frontend UI design, direct video streaming, transcoding and buffering design, batch file moving and deletion, landscape-to-portrait playback, video zoom and positioning, dynamic desktop wallpaper playback, lossless video trimming, and other distinctive features.
+
+This project represents my personal end-to-end product practice: independently defining the core scenario of local media-library management, breaking it down into modules such as poster-wall browsing, detail pages, actor and series aggregation, filtering and sorting, playback records, and batch management.
+
+I designed complex resource-management flows covering local files, NAS SMB resources, NFO metadata, actor information, image cache, playback progress, and multiple other data objects. Through AI collaboration, I completed a runnable desktop demo and continuously optimized the user experience based on real feedback, including paginated lazy loading, playlist incremental loading, multi-part sequential playback, detail-page information display, batch selection, deletion, and moving.
+
+I also established an issue acceptance and verification process, performing black-box testing on high-risk flows such as image loading, playback resume, NAS access, file deletion and moving, and lossless trimming. This helped push the product from “usable” to “stable and practical.”
+
+I am currently available for new opportunities and looking for roles such as AI Product Manager, AI Application Product Manager, Tool Product Manager, Content Product Manager, Client-side Product Manager, Desktop or Mobile App Product Manager, and B2B / Admin System Product Manager.
+
+If you find this project relevant to your company’s product-management needs, feel free to contact me by email: jianya.ge@outlook.com. I will send my resume as soon as possible.
+
+---
+
+### Current Version
+
+Because the current builds were created on a MacBook Air M4 and an ARM64 Windows 11 virtual machine, the macOS version is expected to support Apple Silicon Macs. Intel-based macOS devices may try installing it, but compatibility is not guaranteed because I do not have the corresponding hardware for testing.
+
+The Windows installer currently supports ARM64 Windows 11. Windows 10 and non-ARM64 Windows versions are not guaranteed to install or run correctly.
+
+The iOS mobile app has also been designed and developed, but I do not currently have an Apple individual developer account, so it has not been published on the official App Store.
+
+If macOS blocks installation because the app is from an unidentified developer, you may need to allow the app manually in macOS Privacy & Security settings.
+
+---
+
+### Open Source Policy
+
+This project is not open source. The purpose is to prevent companies, teams, or individuals from reusing the source code for commercial resale or distribution with only minor changes or no changes at all.
+
+---
+
+### Copyright Notice
+
+Copyright © 2026 gejianya. All rights reserved.
+
+This software is permitted for personal, non-commercial use only. Unauthorized copying, modification, reverse engineering, redistribution, or commercial sale is prohibited.
+
 
